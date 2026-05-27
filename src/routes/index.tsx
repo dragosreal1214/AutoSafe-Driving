@@ -263,26 +263,36 @@ function Categorii() {
   const cats = [
     {
       letter: 'B', title: 'Autoturisme', sub: 'Cea mai cerută categorie — manuală sau automată',
+      img: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=900&q=80',
+      alt: 'Autoturism pe șosea',
       specs: [['Vârsta minimă', '18 ani'], ['Teorie', '30 ore'], ['Practică', 'min. 30 ședințe'], ['Durată', '3–4 luni']],
       docs: { t: 'Acte necesare pentru dosar', d: 'Copie CI · fișă medicală auto (valabilă 1 an) · aviz psihologic · cazier judiciar cu mențiunea „examen auto" (valabil 6 luni) · taxa de permis 89 RON.' },
     },
     {
       letter: 'B auto', title: 'Categoria B — cutie automată', sub: 'Ideală pentru traficul urban din Iași',
+      img: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80',
+      alt: 'Schimbător automat de viteze',
       specs: [['Vârsta minimă', '18 ani'], ['Teorie', '30 ore'], ['Practică', 'min. 30 ședințe'], ['Avantaj', 'Fără ambreiaj']],
       docs: { t: 'De ce automată?', d: 'Transmisia automată reduce complexitatea manevrelor și îți permite să te concentrezi pe trafic, reguli și anticipare. Recomandată celor care vor o experiență de condus mai simplă și relaxată.' },
     },
     {
       letter: 'C', title: 'Autocamioane', sub: 'Pentru transport de marfă peste 3,5 t',
+      img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80',
+      alt: 'Cap tractor camion',
       specs: [['Vârsta minimă', '21 ani'], ['Condiție', 'Categoria B'], ['Teorie', '140 ore'], ['Practică', 'min. 30 ședințe']],
       docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria B · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
     },
     {
       letter: 'D', title: 'Autobuze și autocare', sub: 'Pentru transport de persoane',
+      img: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313?auto=format&fit=crop&w=900&q=80',
+      alt: 'Autobuz urban',
       specs: [['Vârsta minimă', '24 ani'], ['Condiție', 'Categoria B'], ['Teorie', '140 ore'], ['Practică', 'min. 30 ședințe']],
       docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria B · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
     },
     {
       letter: 'CE', title: 'Autotren (cap tractor + semiremorcă)', sub: 'Pentru transport profesional',
+      img: 'https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=900&q=80',
+      alt: 'Semiremorcă pe autostradă',
       specs: [['Condiție', 'Categoria C'], ['Destinat', 'Transport marfă'], ['Teorie + practică', 'Conform legii'], ['CPC', 'La cerere']],
       docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria C · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
     },
@@ -318,23 +328,28 @@ function Categorii() {
                 </button>
                 <div className={`grid transition-all duration-500 ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                   <div className="overflow-hidden">
-                    <div className="pl-2 lg:pl-[110px] pr-2 pb-8">
-                      <div className="grid gap-4 mb-5" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
-                        {c.specs.map(([k, v], j) => (
-                          <div key={j}>
-                            <div className="text-[11.5px] uppercase tracking-[0.08em] text-[#157A43] font-bold">{k}</div>
-                            <div className="text-[15.5px] font-semibold text-[#0C2340] mt-0.5">{v}</div>
-                          </div>
-                        ))}
+                    <div className="pl-2 lg:pl-[110px] pr-2 pb-8 grid lg:grid-cols-[260px_1fr] gap-7">
+                      <div className="rounded-xl overflow-hidden border border-[#E0E8F0] aspect-[4/3] lg:aspect-auto lg:max-h-[260px]">
+                        <img src={c.img} alt={c.alt} loading="lazy" className="w-full h-full object-cover" />
                       </div>
-                      <div className="bg-[#EAF2FA] rounded-xl py-5 px-6 text-[14.5px] text-[#16263A]">
-                        <strong className="text-[#0C2340] block mb-1.5" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{c.docs.t}</strong>
-                        {c.docs.d}
+                      <div>
+                        <div className="grid gap-4 mb-5" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' }}>
+                          {c.specs.map(([k, v], j) => (
+                            <div key={j}>
+                              <div className="text-[11.5px] uppercase tracking-[0.08em] text-[#157A43] font-bold">{k}</div>
+                              <div className="text-[15.5px] font-semibold text-[#0C2340] mt-0.5">{v}</div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="bg-[#EAF2FA] rounded-xl py-5 px-6 text-[14.5px] text-[#16263A]">
+                          <strong className="text-[#0C2340] block mb-1.5" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{c.docs.t}</strong>
+                          {c.docs.d}
+                        </div>
+                        <a href="#contact" className="mt-5 inline-flex items-center gap-2 text-[#157A43] font-bold text-[14.5px] hover:gap-3 transition-all">
+                          Solicită detalii
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#157A43" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                        </a>
                       </div>
-                      <a href="#contact" className="mt-5 inline-flex items-center gap-2 text-[#157A43] font-bold text-[14.5px] hover:gap-3 transition-all">
-                        Solicită detalii
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#157A43" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -460,16 +475,22 @@ function Preturi() {
   const plans = [
     {
       tag: 'Categoria B Manual', name: 'Pachet Standard', price: '2.800',
+      img: 'https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=900&q=80',
+      alt: 'Schimbător manual de viteze',
       items: ['30 ore teorie (legislație, vehicul, condus preventiv)', '30 ședințe practică (50 min/ședință)', 'Acces platformă teste online', 'Suport complet pentru dosar', 'Programare examen'],
       cta: 'Înscrie-te acum', featured: true,
     },
     {
       tag: 'Categoria B Automat', name: 'Pachet Automată', price: '3.100',
+      img: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80',
+      alt: 'Schimbător automat',
       items: ['Toate beneficiile pachetului Standard', 'Vehicul cu transmisie automată', 'Recomandat pentru traficul urban din Iași'],
       cta: 'Înscrie-te acum',
     },
     {
       tag: 'Categoria C / D', name: 'Pachet Profesional', price: 'La cerere',
+      img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80',
+      alt: 'Camion profesional',
       items: ['Pregătire completă conform legislației', 'CPC inițial / periodic', 'Instructori specializați transport profesional'],
       cta: 'Solicită ofertă',
     },
@@ -480,10 +501,15 @@ function Preturi() {
         <SectionHead eyebrow="Prețuri & pachete" title="Transparență totală, fără surprize" sub="Toate prețurile de mai jos acoperă integral pregătirea pentru examen — fără taxe ascunse." mark="04" />
         <div className="mt-12 grid lg:grid-cols-3 gap-7 items-stretch">
           {plans.map((p, i) => (
-            <div key={i} className={`card-lift reveal relative bg-white rounded-2xl p-9 flex flex-col ${p.featured ? 'border-2 border-[#1E9E57] shadow-[0_16px_44px_rgba(30,158,87,0.16)]' : 'border border-[#E0E8F0]'}`}>
+            <div key={i} className={`card-lift reveal relative bg-white rounded-2xl overflow-hidden flex flex-col ${p.featured ? 'border-2 border-[#1E9E57] shadow-[0_16px_44px_rgba(30,158,87,0.16)]' : 'border border-[#E0E8F0]'}`}>
               {p.featured && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1E9E57] text-white font-extrabold text-[11.5px] tracking-[0.1em] py-1.5 px-4 rounded-full">RECOMANDAT</div>
+                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 bg-[#1E9E57] text-white font-extrabold text-[11.5px] tracking-[0.1em] py-1.5 px-4 rounded-full z-10">RECOMANDAT</div>
               )}
+              <div className="relative h-32 overflow-hidden">
+                <img src={p.img} alt={p.alt} loading="lazy" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent" />
+              </div>
+              <div className="p-9 pt-5 flex flex-col flex-1">
               <h3 className="text-[14px] uppercase tracking-[0.08em] text-[#5C6B7A] font-bold">{p.tag}</h3>
               <div className="text-[21px] font-bold text-[#0C2340] mt-1" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{p.name}</div>
               <div className="mt-5 mb-1 leading-none">
@@ -501,6 +527,7 @@ function Preturi() {
                 ))}
               </ul>
               <a href="#contact" className={`block text-center py-3.5 rounded-[9px] font-bold transition-all ${p.featured ? 'bg-[#1E9E57] hover:bg-[#157A43] text-white shadow-[0_6px_18px_rgba(30,158,87,0.32)]' : 'bg-[#EAF2FA] hover:bg-[#1D6FB8] hover:text-white text-[#155A98]'}`}>{p.cta}</a>
+              </div>
             </div>
           ))}
         </div>
