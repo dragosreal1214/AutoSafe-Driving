@@ -15,13 +15,15 @@ export const Route = createFileRoute('/')({
 
 const NAV = [
   { id: 'acasa', label: 'Acasă' },
-  { id: 'categorii', label: 'Categorii Permis' },
-  { id: 'flota', label: 'Flota Auto' },
+  { id: 'despre', label: 'Despre' },
+  { id: 'categorii', label: 'Categorii' },
+  { id: 'flota', label: 'Flotă' },
   { id: 'instructori', label: 'Instructori' },
   { id: 'preturi', label: 'Prețuri' },
-  { id: 'contact', label: 'Contact' },
   { id: 'faq', label: 'FAQ' },
 ];
+
+const HERO_IMG = 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1800&q=80';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,29 +35,51 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all ${scrolled ? 'glass border-b border-white/10' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
-        <a href="#acasa" className="flex items-center gap-2.5 text-white">
-          <span className="text-[#1E6FFF]"><SteeringIcon className="w-8 h-8" /></span>
-          <span className="font-extrabold text-lg tracking-tight">AutoSafe<span className="text-[#FF6B00]"> Driving</span></span>
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all border-b ${
+        scrolled
+          ? 'bg-white/92 backdrop-saturate-150 backdrop-blur-md border-[#E0E8F0] shadow-[0_1px_0_rgba(12,35,64,0.03)]'
+          : 'bg-transparent border-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 h-[74px] flex items-center justify-between">
+        <a href="#acasa" className={`flex items-center gap-3 font-extrabold text-[19px] tracking-tight transition-colors ${scrolled ? 'text-[#0C2340]' : 'text-white'}`} style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>
+          <span className={`w-[38px] h-[38px] rounded-[9px] grid place-items-center transition-colors ${scrolled ? 'bg-[#0C2340]' : 'bg-white'}`}>
+            <svg viewBox="0 0 24 24" fill="none" className="w-[22px] h-[22px]">
+              <circle cx="12" cy="12" r="9" stroke="#1E9E57" strokeWidth="2" />
+              <circle cx="12" cy="12" r="2.4" fill="#1E9E57" />
+              <path d="M12 3.2v6.4M12 14.4v6.4M3.2 12h6.4M14.4 12h6.4" stroke="#1E9E57" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </span>
+          <span className="flex flex-col leading-none">
+            <span>AUTOSAFE</span>
+            <small className="text-[10.5px] font-semibold tracking-[0.22em] text-[#1E9E57] mt-[-2px]">DRIVING · IAȘI</small>
+          </span>
         </a>
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-8">
           {NAV.map((n) => (
-            <a key={n.id} href={`#${n.id}`} className="text-sm text-white/75 hover:text-white transition-colors">{n.label}</a>
+            <a
+              key={n.id}
+              href={`#${n.id}`}
+              className={`relative text-[15px] font-semibold transition-colors hover:text-[#1E9E57] ${scrolled ? 'text-[#16263A]' : 'text-white'}`}
+            >
+              {n.label}
+            </a>
           ))}
+          <a href="#contact" className="bg-[#1E9E57] hover:bg-[#157A43] text-white font-bold text-[15px] px-5 py-[11px] rounded-[8px] transition shadow-[0_4px_14px_rgba(30,158,87,0.32)] hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(30,158,87,0.4)]">
+            Înscrie-te
+          </a>
         </nav>
-        <div className="flex items-center gap-3">
-          <a href="#contact" className="hidden sm:inline-flex btn-orange px-5 py-2.5 rounded-full text-sm">Înscrie-te Acum</a>
-          <button className="lg:hidden text-white" onClick={() => setOpen(!open)} aria-label="Meniu">
-            <Icon d={open ? 'M6 6l12 12M6 18L18 6' : 'M4 6h16M4 12h16M4 18h16'} />
-          </button>
-        </div>
+        <button className={`lg:hidden ${scrolled ? 'text-[#0C2340]' : 'text-white'}`} onClick={() => setOpen(!open)} aria-label="Meniu">
+          <Icon d={open ? 'M6 6l12 12M6 18L18 6' : 'M4 6h16M4 12h16M4 18h16'} />
+        </button>
       </div>
       {open && (
-        <div className="lg:hidden glass border-t border-white/10 px-5 py-4 flex flex-col gap-3">
+        <div className="lg:hidden bg-[#0C2340] text-white px-5 py-5 flex flex-col gap-4">
           {NAV.map((n) => (
-            <a key={n.id} href={`#${n.id}`} onClick={() => setOpen(false)} className="text-white/80 py-1">{n.label}</a>
+            <a key={n.id} href={`#${n.id}`} onClick={() => setOpen(false)} className="py-1 text-lg font-semibold">{n.label}</a>
           ))}
+          <a href="#contact" onClick={() => setOpen(false)} className="bg-[#1E9E57] text-white font-bold text-center py-3 rounded-lg">Înscrie-te</a>
         </div>
       )}
     </header>
@@ -64,53 +88,68 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section id="acasa" className="relative min-h-screen flex items-center pt-24 overflow-hidden">
-      <div className="absolute inset-0 road-bg opacity-60" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0F2C]/60 to-[#0A0F2C]" />
-      {/* Speedometer SVG */}
-      <svg className="absolute right-[-120px] top-1/2 -translate-y-1/2 w-[700px] opacity-20 hidden lg:block" viewBox="0 0 200 200" fill="none">
-        <circle cx="100" cy="100" r="90" stroke="#1E6FFF" strokeWidth="1" />
-        <circle cx="100" cy="100" r="70" stroke="#1E6FFF" strokeWidth="1" />
-        {Array.from({ length: 24 }).map((_, i) => {
-          const a = (i / 24) * Math.PI * 1.5 - Math.PI * 0.75;
-          const x1 = 100 + Math.cos(a) * 70;
-          const y1 = 100 + Math.sin(a) * 70;
-          const x2 = 100 + Math.cos(a) * (i % 3 === 0 ? 84 : 78);
-          const y2 = 100 + Math.sin(a) * (i % 3 === 0 ? 84 : 78);
-          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#4A8BFF" strokeWidth={i % 3 === 0 ? 2 : 1} />;
-        })}
-        <line x1="100" y1="100" x2="155" y2="70" stroke="#FF6B00" strokeWidth="3" strokeLinecap="round" />
-        <circle cx="100" cy="100" r="6" fill="#FF6B00" />
-      </svg>
-      <div className="relative max-w-7xl mx-auto px-5 lg:px-8 w-full grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-white/10 text-xs uppercase tracking-widest text-white/80 reveal">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00] animate-pulse" />
-            Școală de șoferi · Iași
-          </div>
-          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight reveal">
-            Conduce cu Încredere.<br />
-            <span className="gradient-text">Pornește de Aici.</span>
+    <header id="acasa" className="relative min-h-screen flex items-center pt-[74px] overflow-hidden bg-[#0C2340]">
+      <div className="absolute inset-0 z-0">
+        <img
+          src={HERO_IMG}
+          alt="Mâini pe volan în trafic"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.28]"
+          loading="eager"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(900px 600px at 78% 18%, rgba(30,158,87,0.22), transparent 60%),' +
+              'radial-gradient(800px 700px at 8% 88%, rgba(29,111,184,0.30), transparent 60%),' +
+              'linear-gradient(160deg, rgba(12,35,64,0.86) 0%, rgba(10,44,80,0.82) 55%, rgba(12,35,64,0.92) 100%)',
+          }}
+        />
+        <svg className="absolute right-[-4%] bottom-[-10%] w-[60%] opacity-10 rotate-[-8deg]" viewBox="0 0 400 400" fill="none">
+          <g stroke="#7FE3AC" strokeWidth="3" strokeLinecap="round">
+            {[0, 80, 160, 240, 320].map((y, i) => <line key={`a${i}`} x1="60" y1={y} x2="60" y2={y + 40} />)}
+            {[20, 100, 180, 260].map((y, i) => <line key={`b${i}`} x1="200" y1={y} x2="200" y2={y + 40} />)}
+            {[0, 80, 160].map((y, i) => <line key={`c${i}`} x1="340" y1={y} x2="340" y2={y + 40} />)}
+          </g>
+        </svg>
+        <div className="absolute inset-0 hero-grain pointer-events-none" />
+      </div>
+
+      <div className="relative z-[2] max-w-7xl mx-auto px-5 lg:px-8 w-full">
+        <div className="max-w-3xl">
+          <span className="eyebrow eyebrow-light">Școală de șoferi · Iași · din 2022</span>
+          <h1 className="text-white font-extrabold mt-6 mb-6" style={{ fontSize: 'clamp(2.6rem, 6.4vw, 5.4rem)', letterSpacing: '-0.03em' }}>
+            <span className="word-up" style={{ animationDelay: '0.05s' }}>Învață</span>{' '}
+            <span className="word-up" style={{ animationDelay: '0.13s' }}>să</span>{' '}
+            <span className="word-up" style={{ animationDelay: '0.21s' }}>conduci</span>{' '}
+            <span className="word-up" style={{ animationDelay: '0.29s' }}>cu</span>{' '}
+            <span className="word-up text-[#7FE3AC]" style={{ animationDelay: '0.37s' }}>încredere.</span>
           </h1>
-          <p className="mt-6 text-lg text-white/70 max-w-xl reveal">
-            AutoSafe Driving — Școala de șoferi din Iași cu <strong className="text-white">4.7★</strong> pe Google și premiul <strong className="text-white">Firma de Aur</strong> 5 ani consecutiv.
+          <p className="text-[#C3D2E2] max-w-xl mb-10" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.32rem)' }}>
+            Pregătire serioasă pentru permisul tău, cu instructori răbdători și dedicați. La AutoSafe formăm șoferi siguri — nu doar candidați la examen.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4 reveal">
-            <a href="#contact" className="btn-orange px-7 py-3.5 rounded-full">Înscrie-te Online</a>
-            <a href="#preturi" className="btn-outline px-7 py-3.5 rounded-full">Descoperă Pachetele</a>
-          </div>
-          <div className="mt-10 flex items-center gap-6 text-sm text-white/60 reveal">
-            <div className="flex items-center gap-2"><span className="text-yellow-400">★★★★★</span> 4.7 · 104 recenzii</div>
-            <div className="hidden sm:block">·</div>
-            <div className="hidden sm:flex items-center gap-2"><span className="text-[#FF6B00]">●</span> ARR Autorizat</div>
+          <div className="flex gap-4 flex-wrap items-center">
+            <a href="#contact" className="btn-primary">
+              Înscrie-te online
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+            <a href="#preturi" className="btn-ghost-light">
+              Vezi prețurile și pachetele
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7FE3AC" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
           </div>
         </div>
       </div>
-    </section>
+
+      <div className="hidden sm:flex absolute right-7 bottom-12 z-[2] flex-col items-center gap-2.5 text-[#9FB2C6] text-[11px] tracking-[0.18em] uppercase">
+        <span>Scroll</span>
+        <span className="scroll-line" />
+      </div>
+    </header>
   );
 }
 
-function Stats() {
+function Trust() {
   const r1 = useRef<HTMLSpanElement>(null);
   const r2 = useRef<HTMLSpanElement>(null);
   const r3 = useRef<HTMLSpanElement>(null);
@@ -118,23 +157,23 @@ function Stats() {
   useCounter(4.7, r1);
   useCounter(104, r2);
   useCounter(5, r3);
-  useCounter(9, r4);
-  const items = [
-    { ref: r1, label: 'Rating Google', suffix: '★' },
-    { ref: r2, label: 'Recenzii pozitive', suffix: '+' },
-    { ref: r3, label: 'Firma de Aur', suffix: '×' },
-    { ref: r4, label: 'Instructori & personal', suffix: '' },
-  ];
+  useCounter(2022, r4);
   return (
-    <section className="relative -mt-10 z-10">
+    <section className="bg-white border-b border-[#E0E8F0]">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="glass border border-white/10 rounded-3xl p-6 lg:p-10 grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((s, i) => (
-            <div key={i} className="text-center lg:text-left">
-              <div className="text-4xl lg:text-5xl font-extrabold text-white">
-                <span ref={s.ref}>0</span><span className="text-[#FF6B00]">{s.suffix}</span>
+        <div className="grid grid-cols-2 md:grid-cols-4">
+          {[
+            { ref: r1, suffix: '', label: 'Rating Google' },
+            { ref: r2, suffix: '+', label: 'Recenzii verificate', green: true },
+            { ref: r3, suffix: '×', label: 'Firma de Aur', green: true },
+            { ref: r4, suffix: '', label: 'Anul fondării' },
+          ].map((s, i) => (
+            <div key={i} className={`reveal text-center py-12 px-7 ${i < 3 ? 'md:border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} border-[#E0E8F0]`}>
+              <div className="font-extrabold leading-none" style={{ fontFamily: "'Schibsted Grotesk', sans-serif", fontSize: 'clamp(2.4rem, 4vw, 3.2rem)' }}>
+                <span ref={s.ref} className={s.green ? 'text-[#1E9E57]' : 'text-[#1D6FB8]'}>0</span>
+                <span className={s.green ? 'text-[#1E9E57]' : 'text-[#1D6FB8]'}>{s.suffix}</span>
               </div>
-              <div className="mt-2 text-sm text-white/60 uppercase tracking-wider">{s.label}</div>
+              <div className="text-[13.5px] text-[#5C6B7A] font-semibold mt-2 uppercase tracking-wider">{s.label}</div>
             </div>
           ))}
         </div>
@@ -143,31 +182,331 @@ function Stats() {
   );
 }
 
-function Features() {
+function About() {
   const feats = [
-    { t: 'Instructori Certificați', d: 'Răbdători, calmi, dedicați rezultatelor tale.', i: 'M16 11a4 4 0 10-8 0 4 4 0 008 0zM3 21a9 9 0 0118 0' },
-    { t: 'Flotă Modernă', d: 'Autovehicule bine întreținute, manuală și automată.', i: 'M3 13l2-5a3 3 0 013-2h8a3 3 0 013 2l2 5M5 17h14M7 17v2M17 17v2M5 13h14' },
-    { t: 'Transparență Totală', d: 'Prețuri clare, fără costuri ascunse.', i: 'M12 8v4l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { t: 'Programări Flexibile', d: 'Adaptate programului tău, inclusiv weekend.', i: 'M8 7V3M16 7V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z' },
+    { t: 'Instructori dedicați', d: 'Calmi, răbdători și orientați spre rezultate — recomandați de sute de cursanți.', i: 'M20 6 9 17l-5-5' },
+    { t: 'Flotă modernă', d: 'Autovehicule bine întreținute, cu cutie manuală și automată, dotate complet pentru siguranță.', i: 'M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2' },
+    { t: 'Prețuri transparente', d: 'Costuri clare, fără surprize. Știi exact ce plătești și ce primești de la început.', i: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' },
+    { t: 'Programări flexibile', d: 'Ore de condus adaptate programului tău — inclusiv în weekend.', i: 'M12 7v5l3 2' },
   ];
   return (
-    <section className="py-24 lg:py-32">
+    <section id="despre" className="py-20 lg:py-[120px] bg-[#F5F9FC]">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="max-w-2xl reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">De ce AutoSafe?</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Pregătire premium pentru drumul tău</h2>
+        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-[70px] items-start">
+          <div className="reveal">
+            <span className="eyebrow">Despre noi</span>
+            <h2 className="mt-5 font-extrabold" style={{ fontSize: 'clamp(2rem, 3.6vw, 3rem)' }}>
+              Nu predăm pentru examen.{' '}
+              <span className="italic font-normal text-[#1E9E57]" style={{ fontFamily: "'Public Sans', sans-serif", letterSpacing: 0 }}>
+                Predăm pentru o viață la volan.
+              </span>
+            </h2>
+            <div className="mt-8 rounded-2xl overflow-hidden border border-[#E0E8F0] shadow-[0_1px_2px_rgba(12,35,64,0.04),0_8px_24px_rgba(12,35,64,0.06)]">
+              <img
+                src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80"
+                alt="Mașină pe drum la apus — pregătire AutoSafe"
+                className="w-full h-[360px] object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div className="reveal">
+            <p className="text-[1.15rem] text-[#16263A] mb-5">
+              AutoSafe Driving este o școală de șoferi din Iași construită pe răbdare, seriozitate și respect față de fiecare cursant.
+            </p>
+            <p className="text-[#16263A] mb-5">
+              Pregătim viitorii șoferi temeinic — întâi teoretic, apoi practic — pentru a face față traficului real din Iași. Punem accent pe condusul preventiv, pe deciziile corecte la volan și pe încrederea în propriile forțe, astfel încât permisul să fie doar confirmarea unei pregătiri solide.
+            </p>
+            <div className="mt-8 grid gap-5">
+              {feats.map((f, i) => (
+                <div key={i} className="flex gap-4 items-start">
+                  <div className="w-11 h-11 rounded-[10px] bg-[#E7F5ED] grid place-items-center flex-shrink-0">
+                    <Icon d={f.i} className="w-[22px] h-[22px]" />
+                  </div>
+                  <div className="text-[#157A43]">
+                    <h4 className="text-[17px] mb-0.5 text-[#0C2340]">{f.t}</h4>
+                    <p className="text-[14.5px] text-[#5C6B7A] m-0">{f.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {feats.map((f, i) => (
-            <div key={i} className="card-lift glass border border-white/10 rounded-2xl p-6 reveal">
-              <div className="w-12 h-12 rounded-xl bg-[#1E6FFF]/15 text-[#4A8BFF] flex items-center justify-center mb-5">
-                <Icon d={f.i} />
+      </div>
+    </section>
+  );
+}
+
+function SectionHead({ eyebrow, title, sub, mark, light = false }: { eyebrow: string; title: string; sub?: string; mark: string; light?: boolean }) {
+  return (
+    <div className="flex justify-between items-end gap-6 flex-wrap mb-4 reveal">
+      <div>
+        <span className={`eyebrow ${light ? 'eyebrow-light' : ''}`}>{eyebrow}</span>
+        <h2 className={`mt-4 font-extrabold ${light ? 'text-white' : ''}`} style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.9rem)', maxWidth: '620px' }}>{title}</h2>
+        {sub && <p className={`mt-3 ${light ? 'text-[#A8BBCF]' : 'text-[#5C6B7A]'}`} style={{ maxWidth: '560px' }}>{sub}</p>}
+      </div>
+      <div
+        className="font-extrabold leading-[0.8] select-none"
+        style={{
+          fontFamily: "'Schibsted Grotesk', sans-serif",
+          fontSize: 'clamp(3rem, 7vw, 5rem)',
+          color: light ? 'rgba(255,255,255,0.08)' : '#EAF2FA',
+        }}
+      >
+        {mark}
+      </div>
+    </div>
+  );
+}
+
+function Categorii() {
+  const cats = [
+    {
+      letter: 'B', title: 'Autoturisme', sub: 'Cea mai cerută categorie — manuală sau automată',
+      specs: [['Vârsta minimă', '18 ani'], ['Teorie', '30 ore'], ['Practică', 'min. 30 ședințe'], ['Durată', '3–4 luni']],
+      docs: { t: 'Acte necesare pentru dosar', d: 'Copie CI · fișă medicală auto (valabilă 1 an) · aviz psihologic · cazier judiciar cu mențiunea „examen auto" (valabil 6 luni) · taxa de permis 89 RON.' },
+    },
+    {
+      letter: 'B auto', title: 'Categoria B — cutie automată', sub: 'Ideală pentru traficul urban din Iași',
+      specs: [['Vârsta minimă', '18 ani'], ['Teorie', '30 ore'], ['Practică', 'min. 30 ședințe'], ['Avantaj', 'Fără ambreiaj']],
+      docs: { t: 'De ce automată?', d: 'Transmisia automată reduce complexitatea manevrelor și îți permite să te concentrezi pe trafic, reguli și anticipare. Recomandată celor care vor o experiență de condus mai simplă și relaxată.' },
+    },
+    {
+      letter: 'C', title: 'Autocamioane', sub: 'Pentru transport de marfă peste 3,5 t',
+      specs: [['Vârsta minimă', '21 ani'], ['Condiție', 'Categoria B'], ['Teorie', '140 ore'], ['Practică', 'min. 30 ședințe']],
+      docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria B · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
+    },
+    {
+      letter: 'D', title: 'Autobuze și autocare', sub: 'Pentru transport de persoane',
+      specs: [['Vârsta minimă', '24 ani'], ['Condiție', 'Categoria B'], ['Teorie', '140 ore'], ['Practică', 'min. 30 ședințe']],
+      docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria B · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
+    },
+    {
+      letter: 'CE', title: 'Autotren (cap tractor + semiremorcă)', sub: 'Pentru transport profesional',
+      specs: [['Condiție', 'Categoria C'], ['Destinat', 'Transport marfă'], ['Teorie + practică', 'Conform legii'], ['CPC', 'La cerere']],
+      docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria C · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
+    },
+  ];
+  const [openIdx, setOpenIdx] = useState<number>(0);
+  return (
+    <section id="categorii" className="py-20 lg:py-[120px]">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <SectionHead eyebrow="Categorii permis" title="Categoriile pe care le predăm" sub="Pregătire completă, cu instructori specializați și vehicule potrivite fiecărei categorii." mark="01" />
+        <div className="mt-12 border-t border-[#E0E8F0] reveal">
+          {cats.map((c, i) => {
+            const isOpen = openIdx === i;
+            return (
+              <div key={i} className="border-b border-[#E0E8F0]">
+                <button
+                  onClick={() => setOpenIdx(isOpen ? -1 : i)}
+                  className="w-full flex items-center gap-6 py-7 px-2 text-left hover:pl-5 transition-[padding] duration-300"
+                >
+                  <span
+                    className={`font-extrabold transition-colors ${isOpen ? 'text-[#1E9E57]' : 'text-[#0C2340]'}`}
+                    style={{ fontFamily: "'Schibsted Grotesk', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', minWidth: 84 }}
+                  >
+                    {c.letter}
+                  </span>
+                  <div className="flex-1">
+                    <strong className="block font-bold text-[18px] text-[#0C2340]" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{c.title}</strong>
+                    <span className="text-[14.5px] text-[#5C6B7A]">{c.sub}</span>
+                  </div>
+                  <span className={`w-10 h-10 rounded-full grid place-items-center flex-shrink-0 transition-all relative border-2 ${isOpen ? 'border-[#1E9E57] bg-[#1E9E57]' : 'border-[#E0E8F0]'}`}>
+                    <span className={`absolute w-[14px] h-[2.5px] ${isOpen ? 'bg-white' : 'bg-[#1D6FB8]'}`} />
+                    <span className={`absolute w-[2.5px] h-[14px] transition-transform ${isOpen ? 'bg-white scale-y-0' : 'bg-[#1D6FB8]'}`} />
+                  </span>
+                </button>
+                <div className={`grid transition-all duration-500 ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                  <div className="overflow-hidden">
+                    <div className="pl-2 lg:pl-[110px] pr-2 pb-8">
+                      <div className="grid gap-4 mb-5" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
+                        {c.specs.map(([k, v], j) => (
+                          <div key={j}>
+                            <div className="text-[11.5px] uppercase tracking-[0.08em] text-[#157A43] font-bold">{k}</div>
+                            <div className="text-[15.5px] font-semibold text-[#0C2340] mt-0.5">{v}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="bg-[#EAF2FA] rounded-xl py-5 px-6 text-[14.5px] text-[#16263A]">
+                        <strong className="text-[#0C2340] block mb-1.5" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{c.docs.t}</strong>
+                        {c.docs.d}
+                      </div>
+                      <a href="#contact" className="mt-5 inline-flex items-center gap-2 text-[#157A43] font-bold text-[14.5px] hover:gap-3 transition-all">
+                        Solicită detalii
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#157A43" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-lg font-bold">{f.t}</h3>
-              <p className="mt-2 text-sm text-white/65 leading-relaxed">{f.d}</p>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Flota() {
+  const cars = [
+    {
+      name: 'Dacia Logan', brand: 'Dacia', model: 'Logan', year: '2022', gear: 'Manuală', engine: '1.0 TCe · Benzină',
+      tag: 'Cutie manuală',
+      img: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
+      name: 'Dacia Sandero', brand: 'Dacia', model: 'Sandero', year: '2023', gear: 'Manuală', engine: '1.0 SCe · Benzină',
+      tag: 'Cutie manuală',
+      img: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
+      name: 'Skoda Octavia', brand: 'Skoda', model: 'Octavia', year: '2021', gear: 'Automată', engine: '1.5 TSI · Benzină',
+      tag: 'Cutie automată',
+      img: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
+      name: 'Ford Transit / Iveco Daily', brand: 'Ford / Iveco', model: 'Transit / Daily', year: '—', gear: 'Manuală', engine: 'Diesel',
+      tag: 'Categorii C/D',
+      img: 'https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=1200&q=80',
+    },
+  ];
+  const safety = ['Frâne ABS', 'Airbag-uri', 'Duble comenzi', 'Aer condiționat', 'Centuri de siguranță'];
+  return (
+    <section id="flota" className="py-20 lg:py-[120px] bg-[#0C2340]">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <SectionHead light eyebrow="Flota auto" title="O flotă întreținută și sigură" sub="Prezentăm transparent fiecare vehicul cu care vei învăța — pentru că încrederea începe înainte de prima oră de condus." mark="02" />
+        <div className="mt-12 grid md:grid-cols-2 gap-7">
+          {cars.map((c, i) => (
+            <div key={i} className="card-lift bg-[#102C4F] border border-white/10 rounded-2xl overflow-hidden hover:border-[#7FE3AC]/40">
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <img src={c.img} alt={c.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C2340]/70 via-transparent to-transparent" />
+                <span className="absolute top-3.5 left-3.5 bg-[#1E9E57]/92 text-white text-[11.5px] font-bold px-2.5 py-1 rounded tracking-wider">{c.tag}</span>
+              </div>
+              <div className="p-6">
+                <h3 className="text-white text-xl font-bold mb-4" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{c.name}</h3>
+                <div className="grid grid-cols-2 gap-px bg-white/[0.07] rounded-[9px] overflow-hidden mb-4">
+                  {[['Marcă / Model', `${c.brand} ${c.model}`], ['An', c.year], ['Cutie', c.gear], ['Motor', c.engine]].map(([k, v], j) => (
+                    <div key={j} className="bg-[#102C4F] py-3 px-3.5">
+                      <div className="text-[10.5px] uppercase tracking-wider text-[#7FE3AC] font-bold">{k}</div>
+                      <div className="text-[14.5px] text-[#E4ECF4] font-semibold mt-0.5">{v}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {safety.map((t) => (
+                    <span key={t} className="text-[11.5px] text-[#C3D2E2] border border-white/[0.18] px-2.5 py-1 rounded-full font-semibold">{t}</span>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>
+        <p className="text-[#A8BBCF] text-[14.5px] mt-8 text-center">Flota este actualizată periodic. Contactează-ne pentru detalii despre vehiculele disponibile.</p>
+      </div>
+    </section>
+  );
+}
+
+function Instructori() {
+  const team = [
+    {
+      n: 'Alexandru Chirilă', spec: 'Categoria B — manual & automat',
+      bio: 'Instructor certificat, atestat ARR. Calm, dedicat și atent la fiecare elev. Pune accent pe tehnica corectă și pe siguranța în trafic.',
+      q: 'Cel mai bun, calm și dedicat instructor!', by: 'elev verificat Google',
+      img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    },
+    {
+      n: 'Cătălin Mămăligă', spec: 'Categoria B',
+      bio: 'Instructor certificat. Direct și eficient — te ajută să înțelegi traficul real din Iași, nu doar teoria.',
+      q: 'Recomand cu încredere pe dl. Mămăligă — garantat iei permisul.', by: 'elev verificat',
+      img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80',
+    },
+    {
+      n: 'Ștefan Rață', spec: 'Categoria B',
+      bio: 'Instructor certificat. Abordare aparte, relaxat și profesionist — creează o atmosferă liniștitoare în mașină.',
+      q: 'Foarte calm, cu o abordare aparte. Recomand!', by: 'Rareș D.',
+      img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80',
+    },
+  ];
+  return (
+    <section id="instructori" className="py-20 lg:py-[120px]">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <SectionHead eyebrow="Instructori" title="Ghizi răbdători, încredere pas cu pas" sub="Instructorii noștri îți construiesc încrederea pas cu pas, indiferent de nivelul tău de experiență." mark="03" />
+        <div className="mt-12 grid md:grid-cols-3 gap-8">
+          {team.map((m, i) => (
+            <div key={i} className="reveal group">
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden relative border border-[#E0E8F0]">
+                <img src={m.img} alt={m.n} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#1E9E57] rounded-2xl transition-colors" />
+              </div>
+              <h3 className="font-bold text-xl text-[#0C2340] mt-5" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{m.n}</h3>
+              <div className="text-[12px] font-bold tracking-[0.1em] uppercase text-[#157A43] mt-1">{m.spec}</div>
+              <p className="text-[14.5px] text-[#5C6B7A] mt-3">{m.bio}</p>
+              <div className="mt-4 pl-3.5 border-l-[3px] border-[#1E9E57] italic text-[14.5px] text-[#16263A]">
+                „{m.q}"
+                <div className="mt-1 text-[12px] text-[#5C6B7A] not-italic">— {m.by}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-[#5C6B7A] text-[14.5px] mt-10">Echipa noastră include instructori pentru categoriile B, C și D. Contactează-ne pentru disponibilitate.</p>
+      </div>
+    </section>
+  );
+}
+
+function Preturi() {
+  const plans = [
+    {
+      tag: 'Categoria B Manual', name: 'Pachet Standard', price: '2.800',
+      items: ['30 ore teorie (legislație, vehicul, condus preventiv)', '30 ședințe practică (50 min/ședință)', 'Acces platformă teste online', 'Suport complet pentru dosar', 'Programare examen'],
+      cta: 'Înscrie-te acum', featured: true,
+    },
+    {
+      tag: 'Categoria B Automat', name: 'Pachet Automată', price: '3.100',
+      items: ['Toate beneficiile pachetului Standard', 'Vehicul cu transmisie automată', 'Recomandat pentru traficul urban din Iași'],
+      cta: 'Înscrie-te acum',
+    },
+    {
+      tag: 'Categoria C / D', name: 'Pachet Profesional', price: 'La cerere',
+      items: ['Pregătire completă conform legislației', 'CPC inițial / periodic', 'Instructori specializați transport profesional'],
+      cta: 'Solicită ofertă',
+    },
+  ];
+  return (
+    <section id="preturi" className="py-20 lg:py-[120px] bg-[#F5F9FC]">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <SectionHead eyebrow="Prețuri & pachete" title="Transparență totală, fără surprize" sub="Toate prețurile de mai jos acoperă integral pregătirea pentru examen — fără taxe ascunse." mark="04" />
+        <div className="mt-12 grid lg:grid-cols-3 gap-7 items-stretch">
+          {plans.map((p, i) => (
+            <div key={i} className={`card-lift reveal relative bg-white rounded-2xl p-9 flex flex-col ${p.featured ? 'border-2 border-[#1E9E57] shadow-[0_16px_44px_rgba(30,158,87,0.16)]' : 'border border-[#E0E8F0]'}`}>
+              {p.featured && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1E9E57] text-white font-extrabold text-[11.5px] tracking-[0.1em] py-1.5 px-4 rounded-full">RECOMANDAT</div>
+              )}
+              <h3 className="text-[14px] uppercase tracking-[0.08em] text-[#5C6B7A] font-bold">{p.tag}</h3>
+              <div className="text-[21px] font-bold text-[#0C2340] mt-1" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{p.name}</div>
+              <div className="mt-5 mb-1 leading-none">
+                <span className={`text-[2.7rem] font-extrabold ${p.featured ? 'text-[#157A43]' : 'text-[#1D6FB8]'}`} style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{p.price}</span>
+                {p.price !== 'La cerere' && <span className="text-base font-semibold text-[#5C6B7A] ml-1">RON</span>}
+              </div>
+              <ul className="mt-6 mb-7 grid gap-3.5 flex-1 list-none">
+                {p.items.map((it, j) => (
+                  <li key={j} className="flex gap-3 items-start text-[14.8px] text-[#16263A]">
+                    <svg className="w-[19px] h-[19px] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="#1E9E57" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span>{it}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="#contact" className={`block text-center py-3.5 rounded-[9px] font-bold transition-all ${p.featured ? 'bg-[#1E9E57] hover:bg-[#157A43] text-white shadow-[0_6px_18px_rgba(30,158,87,0.32)]' : 'bg-[#EAF2FA] hover:bg-[#1D6FB8] hover:text-white text-[#155A98]'}`}>{p.cta}</a>
+            </div>
+          ))}
+        </div>
+        <p className="text-[#5C6B7A] text-[13.5px] mt-8 text-center max-w-[760px] mx-auto">
+          Taxele pentru dosar (fișă medicală, aviz psihologic, cazier, taxa permis 89 RON) nu sunt incluse în prețul cursului și sunt suportate de cursant. Posibilitate de plată în rate — întreabă echipa noastră.
+        </p>
       </div>
     </section>
   );
@@ -175,30 +514,142 @@ function Features() {
 
 function Testimonials() {
   const items = [
-    { q: 'Recomand cu toată încrederea AutoSafe. Instructor: Ștefan Rață — foarte calm și cu o abordare aparte.', n: 'Rareș D.' },
-    { q: '5 stele pentru Chirilă Alexandru. Cel mai bun, calm și dedicat instructor!', n: 'Hlihor I.' },
-    { q: 'Instruirea practică și teoretică a fost excelentă. Voi recomanda tuturor.', n: 'Elev verificat Google' },
+    { q: 'Recomand cu toată încrederea AutoSafe. Instructorul Ștefan Rață a fost foarte calm și a avut o abordare aparte care m-a ajutat să iau permisul din prima.', n: 'Rareș D.' },
+    { q: '5 stele pentru Chirilă Alexandru. Cel mai bun, calm și dedicat instructor pe care l-am avut. Recomand!', n: 'Hlihor I.' },
+    { q: 'Instruirea practică și teoretică a fost excelentă. Voi recomanda tuturor prietenilor mei AutoSafe Driving.', n: 'Elev verificat Google' },
   ];
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % items.length), 6000);
+    return () => clearInterval(t);
+  }, [items.length]);
   return (
-    <section className="py-24 bg-[#0F1638]/40 border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="flex items-end justify-between flex-wrap gap-4 reveal">
-          <div>
-            <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Ce spun elevii</div>
-            <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Recenzii reale de pe Google</h2>
-          </div>
-          <div className="text-white/60 text-sm">★★★★★ 4.7 / 5 · 104 recenzii</div>
+    <section className="py-20 lg:py-[120px] bg-[#1D6FB8] relative overflow-hidden">
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(700px 400px at 80% 20%, rgba(30,158,87,0.28), transparent 60%)' }} />
+      <div className="relative max-w-4xl mx-auto px-5 lg:px-8 text-center">
+        <span className="eyebrow eyebrow-light justify-center" style={{ color: '#BFE9D1' }}>Ce spun elevii</span>
+        <div className="text-[#FFD56B] text-lg tracking-[3px] mt-8 mb-2">★★★★★</div>
+        <blockquote className="text-white font-semibold leading-tight my-7 min-h-[140px] flex items-center justify-center" style={{ fontFamily: "'Schibsted Grotesk', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2.2rem)' }}>
+          „{items[idx].q}"
+        </blockquote>
+        <div className="text-[#CFE2F2] text-[15px] font-semibold">
+          — <b className="text-white">{items[idx].n}</b> · Google Reviews
         </div>
-        <div className="mt-12 grid lg:grid-cols-3 gap-6">
-          {items.map((t, i) => (
-            <div key={i} className="card-lift glass border border-white/10 rounded-2xl p-7 reveal">
-              <div className="text-yellow-400 mb-3">★★★★★</div>
-              <p className="text-white/85 leading-relaxed">"{t.q}"</p>
-              <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1E6FFF] to-[#FF6B00] flex items-center justify-center font-bold text-sm">{t.n[0]}</div>
-                <div>
-                  <div className="font-semibold text-sm">{t.n}</div>
-                  <div className="text-xs text-white/50">Google Reviews</div>
+        <div className="flex gap-2.5 justify-center mt-8">
+          {items.map((_, i) => (
+            <button key={i} onClick={() => setIdx(i)} aria-label={`Recenzie ${i + 1}`} className={`w-9 h-1 rounded-md transition-colors ${idx === i ? 'bg-white' : 'bg-white/30 hover:bg-white/50'}`} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const [sent, setSent] = useState(false);
+  const onSubmit = (e: React.FormEvent) => { e.preventDefault(); setSent(true); setTimeout(() => setSent(false), 4500); };
+  return (
+    <section id="contact" className="py-20 lg:py-[120px]">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <SectionHead eyebrow="Contact & înscriere" title="Hai să începem împreună drumul tău" sub="Trimite-ne datele și un coleg te contactează în cel mult o zi lucrătoare." mark="05" />
+        <div className="mt-12 grid lg:grid-cols-[0.85fr_1.15fr] gap-10">
+          <div className="reveal">
+            {[
+              { k: 'Adresă', v: 'Bulevardul Dacia nr. 29, Iași, România' },
+              { k: 'Telefon', v: '0712 XXX XXX' },
+              { k: 'Email', v: 'contact@autosafedriving.ro' },
+              { k: 'Program', v: 'Luni–Vineri 09:00–19:00\nSâmbătă 09:00–14:00' },
+            ].map((b, i, arr) => (
+              <div key={i} className={`pb-6 mb-6 ${i < arr.length - 1 ? 'border-b border-[#E0E8F0]' : ''}`}>
+                <div className="text-[11.5px] font-bold tracking-[0.1em] uppercase text-[#157A43]">{b.k}</div>
+                <div className="text-[17px] font-semibold text-[#0C2340] mt-1.5 whitespace-pre-line">{b.v}</div>
+              </div>
+            ))}
+            <div className="mt-2 rounded-2xl overflow-hidden border border-[#E0E8F0] h-[230px]">
+              <iframe
+                title="Hartă AutoSafe Driving"
+                src="https://www.google.com/maps?q=Bulevardul+Dacia+29,+Iași,+Romania&output=embed"
+                className="w-full h-full"
+                style={{ filter: 'grayscale(0.2) contrast(1.02)' }}
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <form onSubmit={onSubmit} className="bg-white rounded-2xl p-10 reveal border border-[#E0E8F0] shadow-[0_1px_2px_rgba(12,35,64,0.04),0_8px_24px_rgba(12,35,64,0.06)]">
+            <h3 className="text-2xl font-extrabold text-[#0C2340]" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>Înscriere online</h3>
+            <p className="text-[#5C6B7A] text-[14.5px] mt-1.5 mb-7">Răspundem în cel mult o zi lucrătoare.</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label="Nume complet"><input required type="text" className="input" placeholder="Numele tău" /></Field>
+              <Field label="Telefon"><input required type="tel" className="input" placeholder="07XX XXX XXX" /></Field>
+            </div>
+            <Field label="Adresă email" className="mt-5"><input required type="email" className="input" placeholder="email@exemplu.ro" /></Field>
+            <div className="grid sm:grid-cols-2 gap-4 mt-5">
+              <Field label="Categorie permis">
+                <select className="input" defaultValue="">
+                  <option value="" disabled>Alege categoria</option>
+                  <option>B Manual</option><option>B Automat</option><option>C</option><option>D</option><option>CE</option><option>Nu știu încă</option>
+                </select>
+              </Field>
+              <Field label="Disponibilitate">
+                <select className="input" defaultValue="">
+                  <option value="" disabled>Când ești disponibil?</option>
+                  <option>Dimineața</option><option>Prânz</option><option>Seara</option><option>Weekend</option>
+                </select>
+              </Field>
+            </div>
+            <Field label="Mesaj / întrebări" className="mt-5"><textarea rows={4} className="input" placeholder="Scrie-ne orice întrebare..." /></Field>
+            <button type="submit" className="w-full mt-6 bg-[#1E9E57] hover:bg-[#157A43] text-white py-4 rounded-[9px] font-bold text-[16.5px] transition-all hover:-translate-y-0.5 shadow-[0_8px_22px_rgba(30,158,87,0.32)] hover:shadow-[0_12px_28px_rgba(30,158,87,0.42)]" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>
+              {sent ? '✓ Cererea a fost trimisă!' : 'Trimite cererea'}
+            </button>
+            <p className="text-[13px] text-[#5C6B7A] text-center mt-3.5">Datele tale sunt confidențiale și nu vor fi partajate cu terți.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, className = '', children }: { label: string; className?: string; children: React.ReactNode }) {
+  return (
+    <label className={`block ${className}`}>
+      <span className="block text-[13px] font-bold text-[#0C2340] mb-1.5">{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function FAQ() {
+  const items: [string, string][] = [
+    ['Ce acte am nevoie pentru înscriere?', 'Fișă medicală auto (valabilă 1 an), aviz psihologic, certificat de cazier judiciar cu mențiunea „examen auto" (valabil 6 luni), copie CI și taxa de permis de 89 RON plătită la CEC Bank sau SelfPay.'],
+    ['Cât durează cursul de categoria B?', 'În medie 3–4 luni, în funcție de ritmul tău de programare. Cursul include 30 ore de teorie și minimum 30 ședințe practice.'],
+    ['Pot alege instructorul?', 'Da, poți exprima preferința pentru un instructor la momentul înscrierii, sub rezerva disponibilității.'],
+    ['Oferiți și cursuri pentru mașini cu cutie automată?', 'Da, avem în flotă autovehicule atât cu transmisie manuală, cât și automată.'],
+    ['Pot plăti în rate?', 'Da, avem posibilități de eșalonare a plății. Discutați cu echipa noastră la înscriere.'],
+    ['Unde se desfășoară cursurile teoretice?', 'La sediul nostru din Bulevardul Dacia nr. 29, Iași.'],
+    ['Cât de repede pot programa prima ședință după înscriere?', 'De regulă în prima săptămână după completarea dosarului și achitarea primei rate.'],
+    ['AutoSafe Driving este autorizată ARR?', 'Da, școala este autorizată conform legislației în vigoare pentru toate categoriile de permis oferite.'],
+  ];
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section id="faq" className="py-20 lg:py-[120px] bg-[#F5F9FC]">
+      <div className="max-w-4xl mx-auto px-5 lg:px-8">
+        <div className="text-center reveal">
+          <span className="eyebrow">Întrebări frecvente</span>
+          <h2 className="mt-4 font-extrabold" style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.9rem)' }}>Tot ce vrei să știi înainte de înscriere</h2>
+        </div>
+        <div className="mt-12 border-t border-[#E0E8F0]">
+          {items.map(([q, a], i) => (
+            <div key={i} className="border-b border-[#E0E8F0]">
+              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-5 py-6 px-1.5 text-left hover:text-[#157A43] transition-colors font-semibold text-[18px] text-[#0C2340]" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>
+                <span>{q}</span>
+                <span className="w-[30px] h-[30px] flex-shrink-0 relative">
+                  <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[14px] h-[2.5px] bg-[#1E9E57]" />
+                  <span className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2.5px] h-[14px] bg-[#1E9E57] transition-transform ${open === i ? 'scale-y-0' : ''}`} />
+                </span>
+              </button>
+              <div className={`grid transition-all duration-400 ${open === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                <div className="overflow-hidden">
+                  <p className="px-1.5 pb-6 text-[#5C6B7A] text-[15.5px]">{a}</p>
                 </div>
               </div>
             </div>
@@ -211,389 +662,40 @@ function Testimonials() {
 
 function Awards() {
   return (
-    <section className="py-24">
+    <section className="py-20 lg:py-[120px] bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl border border-[#FF6B00]/30 bg-gradient-to-br from-[#0F1638] via-[#0A0F2C] to-[#0A0F2C] p-10 lg:p-16 reveal">
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#FF6B00]/20 blur-3xl" />
-          <div className="relative grid lg:grid-cols-12 gap-10 items-center">
+        <div className="relative overflow-hidden rounded-3xl border border-[#B08D57]/30 bg-gradient-to-br from-[#FFFDF8] via-[#FBF6EC] to-[#F5EBD7] p-10 lg:p-16 reveal">
+          <div className="absolute -top-32 -right-20 w-80 h-80 rounded-full bg-[#B08D57]/12 blur-3xl" />
+          <div className="absolute -bottom-20 -left-10 w-72 h-72 rounded-full bg-[#1E9E57]/10 blur-3xl" />
+          <div className="relative grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-4 flex justify-center">
-              <div className="relative w-48 h-48">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FFB45A] to-[#FF6B00] flex items-center justify-center shadow-[0_20px_60px_-20px_rgba(255,107,0,0.6)]">
-                  <div className="text-center text-[#0A0F2C]">
-                    <div className="text-3xl font-black leading-none">FIRMA</div>
-                    <div className="text-5xl font-black leading-none my-1">de AUR</div>
-                    <div className="text-xs font-bold tracking-widest">2022 — 2026</div>
+              <div className="relative w-56 h-56">
+                <div className="absolute inset-0 rounded-full border-[6px] border-[#B08D57] bg-gradient-to-br from-[#F5DEB3] via-[#D9BA88] to-[#B08D57] flex items-center justify-center shadow-[0_20px_50px_-15px_rgba(176,141,87,0.6)]">
+                  <div className="text-center text-[#0C2340]">
+                    <div className="text-[11px] font-extrabold tracking-[0.18em] mb-1" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>PREMIUL</div>
+                    <div className="text-[26px] font-black leading-none" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>FIRMA</div>
+                    <div className="text-[36px] font-black leading-none my-1" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>de AUR</div>
+                    <div className="text-[11px] font-bold tracking-[0.18em] mt-1">2022 — 2026</div>
                   </div>
                 </div>
+                <div className="absolute -inset-3 rounded-full border-2 border-dashed border-[#B08D57]/40 animate-[spin_30s_linear_infinite]" />
               </div>
             </div>
             <div className="lg:col-span-8">
-              <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Premii & recunoaștere</div>
-              <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">5 ani consecutiv "Firma de Aur"</h2>
-              <p className="mt-4 text-white/70 text-lg leading-relaxed max-w-2xl">AutoSafe Driving a fost premiată cinci ani la rând cu distincția "Firma de Aur" pentru performanță, calitatea serviciilor și încrederea clienților din Iași.</p>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <span className="eyebrow" style={{ color: '#8B6A3A' }}>Premii și recunoaștere</span>
+              <h2 className="mt-4 font-extrabold" style={{ fontSize: 'clamp(2rem, 3.6vw, 3rem)' }}>
+                5 ani consecutiv <span className="italic font-normal text-[#B08D57]" style={{ fontFamily: "'Public Sans', sans-serif" }}>„Firma de Aur"</span>
+              </h2>
+              <p className="mt-4 text-[#16263A] text-lg leading-relaxed max-w-2xl">
+                AutoSafe Driving a fost premiată cinci ani la rând cu distincția „Firma de Aur" pentru performanță, calitatea serviciilor și încrederea clienților din Iași.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3">
                 {['2022', '2023', '2024', '2025', '2026'].map((y) => (
-                  <span key={y} className="px-4 py-2 rounded-full border border-[#FF6B00]/40 bg-[#FF6B00]/10 text-[#FF8A33] font-semibold text-sm">{y}</span>
+                  <span key={y} className="px-4 py-2 rounded-full border border-[#B08D57]/40 bg-[#FBF6EC] text-[#8B6A3A] font-bold text-sm" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>{y}</span>
                 ))}
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Categorii() {
-  const cats = [
-    {
-      code: 'B', name: 'Autoturism', color: '#1E6FFF',
-      rows: [
-        ['Vârsta minimă', '18 ani'],
-        ['Ore teorie', '30 ore (legislație + cunoașterea vehiculului + condus preventiv)'],
-        ['Ore practică', 'minimum 30 ședințe (50 min/ședință)'],
-        ['Durată curs', '3–4 luni'],
-        ['Acte necesare', 'CI (copie), fișă medicală (1 an), aviz psihologic, cazier "examen auto" (6 luni), taxă permis 89 RON'],
-        ['Disponibil', 'cutie manuală sau automată'],
-      ],
-    },
-    {
-      code: 'B-Auto', name: 'Automată', color: '#4A8BFF',
-      rows: [
-        ['Condiții', 'aceleași ca pentru categoria B'],
-        ['Recomandat pentru', 'traficul urban din Iași'],
-        ['Ideal pentru', 'cei care vor să se concentreze pe trafic, nu pe ambreiaj'],
-      ],
-    },
-    {
-      code: 'C', name: 'Autocamion', color: '#FF6B00',
-      rows: [
-        ['Vârsta minimă', '21 ani (sau 18 ani cu calificare profesională CPC)'],
-        ['Condiție prealabilă', 'deținerea categoriei B'],
-        ['Ore teorie', '140 ore (conform legislație)'],
-        ['Ore practică', 'minimum 30 ședințe'],
-        ['Acte necesare', 'CI, fișă medicală, aviz psihologic, cazier, copie permis B'],
-      ],
-    },
-    {
-      code: 'D', name: 'Autocar / Autobuz', color: '#FF8A33',
-      rows: [
-        ['Vârsta minimă', '24 ani'],
-        ['Condiție prealabilă', 'deținerea categoriei B'],
-        ['Ore teorie', '140 ore'],
-        ['Ore practică', 'minimum 30 ședințe'],
-      ],
-    },
-    {
-      code: 'CE', name: 'Autotren (cap tractor + semiremorcă)', color: '#1E6FFF',
-      rows: [
-        ['Condiție prealabilă', 'deținerea categoriei C'],
-        ['Specializare', 'transport profesional'],
-      ],
-    },
-  ];
-  return (
-    <section id="categorii" className="py-24 lg:py-32 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="max-w-3xl reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Categorii Permis</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Pregătire completă pentru fiecare categorie</h2>
-          <p className="mt-4 text-white/70 text-lg">La AutoSafe Driving oferim pregătire completă pentru mai multe categorii de permis, cu instructori specializați și vehicule adecvate fiecărui tip de curs.</p>
-        </div>
-        <div className="mt-12 grid lg:grid-cols-2 gap-6">
-          {cats.map((c, i) => (
-            <div key={i} className="card-lift glass border border-white/10 rounded-2xl p-7 reveal">
-              <div className="flex items-start gap-5">
-                <div className="shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center font-black text-xl" style={{ background: `${c.color}25`, color: c.color, border: `1px solid ${c.color}55` }}>{c.code}</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold">Categoria {c.code} <span className="text-white/55 font-medium">— {c.name}</span></h3>
-                  <dl className="mt-4 divide-y divide-white/5">
-                    {c.rows.map(([k, v], j) => (
-                      <div key={j} className="py-2.5 grid grid-cols-3 gap-3 text-sm">
-                        <dt className="text-white/55">{k}</dt>
-                        <dd className="col-span-2 text-white/90">{v}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <a href="#contact" className="mt-5 inline-flex btn-outline px-5 py-2 rounded-full text-sm">Solicită Detalii</a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Flota() {
-  const cars = [
-    { name: 'Dacia Logan', brand: 'Dacia', model: 'Logan', year: '2022', gear: 'Manuală', engine: '1.0 TCe', fuel: 'Benzină' },
-    { name: 'Dacia Sandero', brand: 'Dacia', model: 'Sandero', year: '2023', gear: 'Manuală', engine: '1.0 SCe', fuel: 'Benzină' },
-    { name: 'Skoda Octavia', brand: 'Skoda', model: 'Octavia', year: '2021', gear: 'Automată', engine: '1.5 TSI', fuel: 'Benzină' },
-    { name: 'Ford Transit / Iveco Daily', brand: 'Ford / Iveco', model: 'Transit / Daily', year: '—', gear: 'Manuală', engine: '—', fuel: 'Diesel', note: 'pentru categoriile C/D' },
-  ];
-  const tags = ['Frâne ABS', 'Airbag-uri', 'Duble comenzi', 'Aer condiționat', 'Centuri de siguranță'];
-  return (
-    <section id="flota" className="py-24 lg:py-32 bg-[#0F1638]/40 border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="max-w-3xl reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Flota Auto</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Vehicule moderne, sigure, întreținute</h2>
-          <p className="mt-4 text-white/70 text-lg">Parcul nostru auto este modern, bine întreținut și pregătit pentru a-ți oferi o experiență de conducere sigură și confortabilă. Transparența față de viitorii elevi include și prezentarea vehiculelor cu care vor învăța.</p>
-        </div>
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          {cars.map((c, i) => (
-            <div key={i} className="card-lift glass border border-white/10 rounded-2xl overflow-hidden reveal">
-              <div className="relative h-52 bg-gradient-to-br from-[#1a2350] via-[#0F1638] to-[#0A0F2C] flex items-center justify-center">
-                <svg viewBox="0 0 200 100" className="w-2/3 opacity-60" fill="none" stroke="#4A8BFF" strokeWidth="1.5">
-                  <path d="M20 70 L40 50 L70 45 L130 45 L160 50 L180 70 L180 80 L20 80 Z" fill="#1E6FFF" fillOpacity="0.15" />
-                  <circle cx="55" cy="80" r="10" fill="#0A0F2C" />
-                  <circle cx="145" cy="80" r="10" fill="#0A0F2C" />
-                  <path d="M50 55 L70 50 L130 50 L150 55" />
-                </svg>
-                <div className="absolute top-3 right-3 text-[10px] uppercase tracking-widest text-white/40 bg-black/40 px-2 py-1 rounded">[photo placeholder]</div>
-                <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-[#FF6B00] text-white text-xs font-bold">{c.name}</div>
-              </div>
-              <div className="p-6">
-                <div className="grid grid-cols-2 gap-y-2.5 gap-x-4 text-sm">
-                  <div><span className="text-white/50">Marcă:</span> <span className="text-white/95 font-medium">{c.brand}</span></div>
-                  <div><span className="text-white/50">Model:</span> <span className="text-white/95 font-medium">{c.model}</span></div>
-                  <div><span className="text-white/50">An:</span> <span className="text-white/95 font-medium">{c.year}</span></div>
-                  <div><span className="text-white/50">Cutie viteze:</span> <span className="text-white/95 font-medium">{c.gear}</span></div>
-                  <div><span className="text-white/50">Motor:</span> <span className="text-white/95 font-medium">{c.engine}</span></div>
-                  <div><span className="text-white/50">Combustibil:</span> <span className="text-white/95 font-medium">{c.fuel}</span></div>
-                </div>
-                {c.note && <div className="mt-3 text-xs text-[#FF8A33]">{c.note}</div>}
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {tags.map((t) => (
-                    <span key={t} className="text-[11px] px-2.5 py-1 rounded-md bg-[#1E6FFF]/10 text-[#4A8BFF] border border-[#1E6FFF]/20">{t}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-8 text-sm text-white/55 text-center reveal">
-          <span className="text-[#FF8A33]">*</span> exemplu — urmează a fi completat cu flotă reală. Flota noastră este actualizată periodic. Contactați-ne pentru detalii actualizate despre vehiculele disponibile.
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Instructori() {
-  const team = [
-    { n: 'Alexandru Chirilă', i: 'AC', spec: 'Categoria B (manual & automat)', exp: 'Instructor certificat, atestat ARR', style: 'Calm, dedicat și atent la fiecare elev. Pune accent pe tehnica corectă și pe siguranța în trafic.', q: 'Cel mai bun, calm și dedicat instructor!', by: 'elev verificat Google' },
-    { n: 'Cătălin Mămăligă', i: 'CM', spec: 'Categoria B', exp: 'Instructor certificat', style: 'Direct și eficient. Te ajută să înțelegi traficul real din Iași, nu doar teoria.', q: 'Recomand cu încredere pe dl. Mămăligă — garantat iei permisul.', by: 'elev verificat' },
-    { n: 'Ștefan Rață', i: 'ȘR', spec: 'Categoria B', exp: 'Instructor certificat', style: 'Abordare aparte, relaxat și profesionist. Creează o atmosferă liniștitoare în mașină.', q: 'Foarte calm, cu o abordare aparte. Recomand!', by: 'Rareș D.' },
-  ];
-  return (
-    <section id="instructori" className="py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="max-w-3xl reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Instructori</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Ghizi răbdători, încredere pas cu pas</h2>
-          <p className="mt-4 text-white/70 text-lg">La AutoSafe Driving, instructorii noștri sunt mai mult decât profesori — sunt ghizi răbdători care îți construiesc încrederea pas cu pas, indiferent de nivelul tău de experiență.</p>
-        </div>
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
-          {team.map((m, i) => (
-            <div key={i} className="card-lift glass border border-white/10 rounded-2xl p-7 reveal">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#1E6FFF] to-[#FF6B00] flex items-center justify-center text-3xl font-black mb-5">{m.i}</div>
-              <h3 className="text-xl font-bold">{m.n}</h3>
-              <div className="mt-1 text-sm text-[#4A8BFF]">{m.spec}</div>
-              <div className="mt-1 text-xs text-white/55">{m.exp}</div>
-              <p className="mt-4 text-sm text-white/75 leading-relaxed">{m.style}</p>
-              <div className="mt-5 pt-5 border-t border-white/10">
-                <div className="text-yellow-400 text-sm mb-1.5">★★★★★</div>
-                <p className="text-sm italic text-white/80">"{m.q}"</p>
-                <div className="mt-1.5 text-xs text-white/50">— {m.by}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 text-sm text-white/55 text-center reveal">Echipa noastră include instructori pentru categoriile B, C și D. Contactați-ne pentru a afla disponibilitatea instructorilor specializați.</p>
-      </div>
-    </section>
-  );
-}
-
-function Preturi() {
-  const plans = [
-    {
-      name: 'Pachet Standard', sub: 'Categoria B Manual', price: '2.800', badge: 'Cel mai ales',
-      items: ['30 ore teorie (legislație, cunoașterea vehiculului, condus preventiv)', '30 ședințe practică (50 min/ședință)', 'Acces platformă teste online', 'Suport complet pentru dosar (îndrumări acte)', 'Programare examen'],
-      cta: 'Înscrie-te Acum', featured: true,
-    },
-    {
-      name: 'Pachet Automată', sub: 'Categoria B Automat', price: '3.100',
-      items: ['Toate beneficiile pachetului Standard', 'Vehicul cu transmisie automată', 'Recomandat pentru traficul urban din Iași'],
-      cta: 'Înscrie-te Acum',
-    },
-    {
-      name: 'Pachet Profesional', sub: 'Categoria C / D', price: 'La cerere',
-      items: ['Pregătire completă conform legislației', 'CPC inițial / periodic', 'Instructori specializați transport profesional'],
-      cta: 'Solicită Ofertă',
-    },
-  ];
-  return (
-    <section id="preturi" className="py-24 lg:py-32 bg-[#0F1638]/40 border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="max-w-3xl reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Prețuri & Pachete</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Transparență totală, fără surprize</h2>
-          <p className="mt-4 text-white/70 text-lg">Credem în transparență totală. Toate prețurile incluse mai jos acoperă integral pregătirea pentru examen, fără taxe ascunse.</p>
-        </div>
-        <div className="mt-12 grid lg:grid-cols-3 gap-6 items-stretch">
-          {plans.map((p, i) => (
-            <div key={i} className={`card-lift relative rounded-2xl p-8 reveal flex flex-col ${p.featured ? 'border-2 border-[#FF6B00] bg-gradient-to-b from-[#1E6FFF]/10 to-transparent' : 'border border-white/10 glass'}`}>
-              {p.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full btn-orange text-xs">{p.badge}</div>
-              )}
-              <div className="text-sm text-white/60">{p.sub}</div>
-              <h3 className="mt-1 text-2xl font-bold">{p.name}</h3>
-              <div className="mt-6 flex items-baseline gap-1">
-                <span className="text-5xl font-black">{p.price}</span>
-                {p.price !== 'La cerere' && <span className="text-white/60 font-medium">RON</span>}
-              </div>
-              <ul className="mt-7 space-y-3 flex-1">
-                {p.items.map((it, j) => (
-                  <li key={j} className="flex gap-3 text-sm text-white/80">
-                    <span className="text-[#FF6B00] shrink-0 mt-0.5">✓</span><span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-              <a href="#contact" className={`mt-8 text-center px-6 py-3 rounded-full ${p.featured ? 'btn-orange' : 'btn-outline'}`}>{p.cta}</a>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 max-w-4xl mx-auto text-sm text-white/60 space-y-2 reveal">
-          <p><span className="text-[#FF8A33]">*</span> Taxele pentru dosar (fișă medicală, aviz psihologic, cazier, taxa permis 89 RON) nu sunt incluse în prețul cursului și sunt suportate de cursant. Prețurile pot varia — contactați-ne pentru tariful actualizat.</p>
-          <p className="text-white/75">💳 <strong>Posibilitate de plată în rate.</strong> Discutați cu echipa noastră.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Contact() {
-  const [sent, setSent] = useState(false);
-  const onSubmit = (e: React.FormEvent) => { e.preventDefault(); setSent(true); setTimeout(() => setSent(false), 4500); };
-  return (
-    <section id="contact" className="py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="max-w-3xl reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">Contact & Înscriere</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Hai să începem împreună drumul tău</h2>
-        </div>
-        <div className="mt-12 grid lg:grid-cols-2 gap-8">
-          <div className="space-y-6 reveal">
-            <div className="glass border border-white/10 rounded-2xl p-7 space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#FF6B00]/15 text-[#FF8A33] flex items-center justify-center"><Icon d="M12 22s8-7.5 8-13a8 8 0 10-16 0c0 5.5 8 13 8 13zM12 11a2 2 0 100-4 2 2 0 000 4z" className="w-5 h-5" /></div>
-                <div><div className="text-xs uppercase tracking-wider text-white/50">Adresă</div><div className="font-semibold">Bulevardul Dacia nr. 29, Iași, România</div></div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#1E6FFF]/15 text-[#4A8BFF] flex items-center justify-center"><Icon d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0122 16.92z" className="w-5 h-5" /></div>
-                <div><div className="text-xs uppercase tracking-wider text-white/50">Telefon</div><div className="font-semibold">0712 XXX XXX</div></div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#1E6FFF]/15 text-[#4A8BFF] flex items-center justify-center"><Icon d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6" className="w-5 h-5" /></div>
-                <div><div className="text-xs uppercase tracking-wider text-white/50">Email</div><div className="font-semibold">contact@autosafedriving.ro</div></div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#FF6B00]/15 text-[#FF8A33] flex items-center justify-center"><Icon d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" className="w-5 h-5" /></div>
-                <div><div className="text-xs uppercase tracking-wider text-white/50">Program</div><div className="font-semibold">Luni–Vineri 09:00–19:00<br />Sâmbătă 09:00–14:00</div></div>
-              </div>
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-white/10 h-72">
-              <iframe
-                title="Hartă AutoSafe Driving"
-                src="https://www.google.com/maps?q=Bulevardul+Dacia+29,+Iași,+Romania&output=embed"
-                className="w-full h-full grayscale-[0.3]"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <form onSubmit={onSubmit} className="glass border border-white/10 rounded-2xl p-7 space-y-4 reveal">
-            <h3 className="text-xl font-bold">Înscriere Online</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="Nume complet"><input required type="text" className="input" placeholder="Numele tău" /></Field>
-              <Field label="Număr de telefon"><input required type="tel" className="input" placeholder="07XX XXX XXX" /></Field>
-            </div>
-            <Field label="Adresă email"><input required type="email" className="input" placeholder="email@exemplu.ro" /></Field>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="Categorie permis dorită">
-                <select className="input" defaultValue="">
-                  <option value="" disabled>Alege categoria</option>
-                  <option>B Manual</option><option>B Automat</option><option>C</option><option>D</option><option>CE</option><option>Nu știu încă</option>
-                </select>
-              </Field>
-              <Field label="Instructor preferat">
-                <select className="input" defaultValue="">
-                  <option value="" disabled>Alege instructorul</option>
-                  <option>Alexandru Chirilă</option><option>Cătălin Mămăligă</option><option>Ștefan Rață</option><option>Fără preferință</option>
-                </select>
-              </Field>
-            </div>
-            <Field label="Disponibilitate preferată">
-              <select className="input" defaultValue="">
-                <option value="" disabled>Când ești disponibil?</option>
-                <option>Dimineața</option><option>Prânz</option><option>Seara</option><option>Weekend</option>
-              </select>
-            </Field>
-            <Field label="Mesaj / Întrebări"><textarea rows={4} className="input" placeholder="Scrie-ne orice întrebare..." /></Field>
-            <button type="submit" className="btn-orange w-full py-3.5 rounded-full">{sent ? '✓ Cererea a fost trimisă!' : 'Trimite Cererea'}</button>
-            <p className="text-xs text-white/50 text-center">Datele tale sunt confidențiale și nu vor fi partajate cu terți.</p>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="block text-xs uppercase tracking-wider text-white/55 mb-1.5">{label}</span>
-      {children}
-    </label>
-  );
-}
-
-function FAQ() {
-  const items = [
-    ['Ce acte am nevoie pentru înscriere?', 'Fișă medicală auto (valabilă 1 an), aviz psihologic, certificat de cazier judiciar cu mențiunea "examen auto" (valabil 6 luni), copie CI și taxa de permis de 89 RON plătită la CEC Bank sau SelfPay.'],
-    ['Cât durează cursul de categoria B?', 'În medie 3–4 luni, în funcție de ritmul tău de programare. Cursul include 30 ore de teorie și minimum 30 ședințe practice.'],
-    ['Pot alege instructorul?', 'Da, poți exprima preferința pentru un instructor la momentul înscrierii, sub rezerva disponibilității.'],
-    ['Oferiți și cursuri pentru mașini cu cutie automată?', 'Da, avem în flotă autovehicule atât cu transmisie manuală, cât și automată.'],
-    ['Pot plăti în rate?', 'Da, avem posibilități de eșalonare a plății. Discutați cu echipa noastră la înscriere.'],
-    ['Unde se desfășoară cursurile teoretice?', 'La sediul nostru din Bulevardul Dacia nr. 29, Iași.'],
-    ['Cât de repede pot programa prima ședință după înscriere?', 'De regulă în prima săptămână după completarea dosarului și achitarea primei rate.'],
-    ['AutoSafe Driving este autorizată ARR?', 'Da, școala este autorizată conform legislației în vigoare pentru toate categoriile de permis oferite.'],
-  ];
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section id="faq" className="py-24 lg:py-32 bg-[#0F1638]/40 border-y border-white/5">
-      <div className="max-w-4xl mx-auto px-5 lg:px-8">
-        <div className="text-center reveal">
-          <div className="text-xs uppercase tracking-widest text-[#FF6B00] font-semibold">FAQ</div>
-          <h2 className="mt-3 text-3xl lg:text-5xl font-extrabold tracking-tight">Întrebări frecvente</h2>
-        </div>
-        <div className="mt-12 space-y-3">
-          {items.map(([q, a], i) => (
-            <div key={i} className="glass border border-white/10 rounded-xl overflow-hidden reveal">
-              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-4 text-left p-5 hover:bg-white/5 transition-colors">
-                <span className="font-semibold">{q}</span>
-                <span className={`text-[#FF6B00] text-2xl transition-transform shrink-0 ${open === i ? 'rotate-45' : ''}`}>+</span>
-              </button>
-              <div className={`grid transition-all duration-300 ${open === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-                <div className="overflow-hidden">
-                  <p className="px-5 pb-5 text-white/75 leading-relaxed">{a}</p>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -602,40 +704,54 @@ function FAQ() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#070B22]">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid lg:grid-cols-4 gap-10">
-        <div className="lg:col-span-2">
-          <div className="flex items-center gap-2.5 text-white">
-            <span className="text-[#1E6FFF]"><SteeringIcon className="w-8 h-8" /></span>
-            <span className="font-extrabold text-lg tracking-tight">AutoSafe<span className="text-[#FF6B00]"> Driving</span></span>
+    <footer className="bg-[#0C2340] text-[#A8BBCF] pt-20 pb-9">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 pb-12 border-b border-white/10">
+        <div>
+          <a href="#acasa" className="flex items-center gap-3 text-white font-extrabold text-2xl" style={{ fontFamily: "'Schibsted Grotesk', sans-serif" }}>
+            <span className="w-[38px] h-[38px] rounded-[9px] bg-white grid place-items-center">
+              <svg viewBox="0 0 24 24" fill="none" className="w-[22px] h-[22px]">
+                <circle cx="12" cy="12" r="9" stroke="#1E9E57" strokeWidth="2" />
+                <circle cx="12" cy="12" r="2.4" fill="#1E9E57" />
+              </svg>
+            </span>
+            <span className="flex flex-col leading-none">
+              <span>AUTOSAFE</span>
+              <small className="text-[10.5px] font-semibold tracking-[0.22em] text-[#1E9E57] mt-[-2px]">DRIVING · IAȘI</small>
+            </span>
+          </a>
+          <p className="mt-5 text-[#92A8C0] text-[14.5px] max-w-[280px]">
+            Școală de șoferi premium în Iași. Pregătire completă pentru categoriile B, C, D și CE — cu instructori dedicați și transparență totală.
+          </p>
+          <div className="mt-6 inline-flex items-center gap-3 border border-[#B08D57]/50 rounded-[10px] py-2.5 px-4">
+            <span className="seal-badge">FIRMA<br />DE AUR</span>
+            <span className="text-[12.5px] text-[#D9BA88] font-semibold">5 ani consecutiv<br />2022–2026</span>
           </div>
-          <p className="mt-4 text-white/60 text-sm max-w-md">Școală de șoferi premium în Iași. Pregătire completă pentru categoriile B, C, D și CE — cu instructori dedicați și transparență totală.</p>
-          <a href="https://www.facebook.com/auto.safe.driving/" target="_blank" rel="noopener" className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 hover:text-white">
-            <span className="w-9 h-9 rounded-full bg-[#1E6FFF]/15 flex items-center justify-center text-[#4A8BFF]"><Icon d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" className="w-4 h-4" /></span>
+        </div>
+        <div>
+          <h4 className="text-white text-[13px] tracking-[0.1em] uppercase mb-4 font-bold">Navigare</h4>
+          {NAV.map((n) => (
+            <a key={n.id} href={`#${n.id}`} className="block text-[14.5px] mb-3 text-[#A8BBCF] hover:text-[#7FE3AC] transition-colors">{n.label}</a>
+          ))}
+        </div>
+        <div>
+          <h4 className="text-white text-[13px] tracking-[0.1em] uppercase mb-4 font-bold">Contact</h4>
+          <p className="text-[14.5px] mb-3">Bd. Dacia nr. 29<br />Iași, România</p>
+          <a href="tel:0712000000" className="block text-[14.5px] mb-3 hover:text-[#7FE3AC] transition-colors">0712 XXX XXX</a>
+          <a href="mailto:contact@autosafedriving.ro" className="block text-[14.5px] hover:text-[#7FE3AC] transition-colors">contact@autosafedriving.ro</a>
+        </div>
+        <div>
+          <h4 className="text-white text-[13px] tracking-[0.1em] uppercase mb-4 font-bold">Urmărește-ne</h4>
+          <a href="https://www.facebook.com/auto.safe.driving/" target="_blank" rel="noopener" className="inline-flex items-center gap-2.5 text-[14.5px] hover:text-[#7FE3AC] transition-colors">
+            <span className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
+              <Icon d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" className="w-4 h-4" />
+            </span>
             Facebook
           </a>
         </div>
-        <div>
-          <div className="text-xs uppercase tracking-widest text-white/50 mb-4">Navigare</div>
-          <ul className="space-y-2 text-sm">
-            {NAV.map((n) => <li key={n.id}><a href={`#${n.id}`} className="text-white/70 hover:text-white">{n.label}</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-widest text-white/50 mb-4">Contact</div>
-          <ul className="space-y-2 text-sm text-white/70">
-            <li>Bd. Dacia nr. 29, Iași</li>
-            <li>0712 XXX XXX</li>
-            <li>contact@autosafedriving.ro</li>
-          </ul>
-          <div className="mt-6 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#FF6B00]/30 bg-[#FF6B00]/10 text-[#FF8A33] text-xs font-bold">
-            🏆 Firma de Aur 2022–2026
-          </div>
-        </div>
       </div>
-      <div className="border-t border-white/5 py-5 px-5 lg:px-8 text-xs text-white/50 max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-        <div>© 2025 AutoSafe Driving SRL · CUI 46299076 · Toate drepturile rezervate</div>
-        <div>Design premium · Iași, România</div>
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 pt-7 flex flex-wrap justify-between items-center gap-3 text-[13px] text-[#7589A0]">
+        <div>© 2026 AutoSafe Driving SRL · CUI 46299076 · Toate drepturile rezervate</div>
+        <div>Iași, România</div>
       </div>
     </footer>
   );
@@ -644,7 +760,7 @@ function Footer() {
 function WhatsAppFab() {
   return (
     <a href="https://wa.me/40712000000" target="_blank" rel="noopener"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] shadow-[0_15px_40px_-10px_rgba(37,211,102,0.6)] flex items-center justify-center text-white hover:scale-110 transition-transform"
+      className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#1E9E57] shadow-[0_8px_24px_rgba(30,158,87,0.4)] flex items-center justify-center text-white hover:scale-110 transition-transform"
       aria-label="Contactează-ne pe WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
         <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.413c-.003 6.555-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.595 5.276l-.999 3.648 3.893-.623zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z" />
@@ -656,37 +772,21 @@ function WhatsAppFab() {
 function Home() {
   useReveal();
   return (
-    <div className="min-h-screen bg-[#0A0F2C] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-white text-[#16263A]">
       <Navbar />
       <Hero />
-      <Stats />
-      <Features />
-      <Testimonials />
-      <Awards />
+      <Trust />
+      <About />
       <Categorii />
       <Flota />
       <Instructori />
       <Preturi />
+      <Testimonials />
       <Contact />
       <FAQ />
+      <Awards />
       <Footer />
       <WhatsAppFab />
-      <style>{`
-        .input {
-          width: 100%;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 0.75rem;
-          padding: 0.75rem 1rem;
-          color: white;
-          font-size: 0.95rem;
-          transition: all .2s;
-        }
-        .input:focus { outline: none; border-color: #1E6FFF; background: rgba(30,111,255,0.06); box-shadow: 0 0 0 4px rgba(30,111,255,0.12); }
-        .input::placeholder { color: rgba(255,255,255,0.35); }
-        select.input { appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff80' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
-        select.input option { background: #0F1638; color: white; }
-      `}</style>
     </div>
   );
 }
