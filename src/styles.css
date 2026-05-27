@@ -1,0 +1,89 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@theme inline {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-navy: #0A0F2C;
+  --color-navy-2: #0F1638;
+  --color-charcoal: #111827;
+  --color-electric: #1E6FFF;
+  --color-electric-2: #4A8BFF;
+  --color-safety: #FF6B00;
+  --color-safety-2: #FF8A33;
+  --color-lightgray: #F5F6FA;
+
+  --color-background: #0A0F2C;
+  --color-foreground: #F5F6FA;
+  --color-border: rgba(255,255,255,0.08);
+  --color-muted: rgba(255,255,255,0.06);
+  --color-muted-foreground: rgba(245,246,250,0.65);
+  --color-card: #0F1638;
+  --color-card-foreground: #F5F6FA;
+  --color-primary: #1E6FFF;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #FF6B00;
+  --color-accent-foreground: #ffffff;
+  --color-ring: #1E6FFF;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0A0F2C;
+  color: #F5F6FA;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { border-color: rgba(255,255,255,0.08); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; }
+.reveal.in { animation: fadeUp 0.8s ease-out forwards; }
+
+@keyframes roadMove {
+  from { background-position: 0 0; }
+  to { background-position: 0 200px; }
+}
+.road-bg {
+  background-image:
+    radial-gradient(ellipse at top, rgba(30,111,255,0.25), transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(255,107,0,0.15), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0, transparent 38px, rgba(255,255,255,0.06) 38px, rgba(255,255,255,0.06) 40px);
+  animation: roadMove 6s linear infinite;
+}
+
+.glass {
+  background: rgba(15,22,56,0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.card-lift { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+.card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -20px rgba(30,111,255,0.35); border-color: rgba(30,111,255,0.4); }
+
+.btn-orange {
+  background: linear-gradient(135deg, #FF6B00, #FF8A33);
+  color: white; font-weight: 600;
+  box-shadow: 0 10px 30px -10px rgba(255,107,0,0.55);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn-orange:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -12px rgba(255,107,0,0.75); }
+
+.btn-outline {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white; font-weight: 600;
+  transition: all .25s ease;
+}
+.btn-outline:hover { border-color: #1E6FFF; background: rgba(30,111,255,0.1); }
+
+.gradient-text {
+  background: linear-gradient(135deg, #4A8BFF 0%, #FF8A33 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
