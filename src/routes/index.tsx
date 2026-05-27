@@ -118,12 +118,12 @@ function Hero() {
       <div className="relative z-[2] max-w-7xl mx-auto px-5 lg:px-8 w-full">
         <div className="max-w-3xl">
           <span className="eyebrow eyebrow-light">Școală de șoferi · Iași · din 2022</span>
-          <h1 className="text-white font-extrabold mt-6 mb-6" style={{ fontSize: 'clamp(2.6rem, 6.4vw, 5.4rem)', letterSpacing: '-0.03em' }}>
-            <span className="word-up" style={{ animationDelay: '0.05s' }}>Învață</span>{' '}
-            <span className="word-up" style={{ animationDelay: '0.13s' }}>să</span>{' '}
-            <span className="word-up" style={{ animationDelay: '0.21s' }}>conduci</span>{' '}
-            <span className="word-up" style={{ animationDelay: '0.29s' }}>cu</span>{' '}
-            <span className="word-up text-[#7FE3AC]" style={{ animationDelay: '0.37s' }}>încredere.</span>
+          <h1 className="font-extrabold mt-6 mb-6" style={{ color: '#FFFFFF', fontSize: 'clamp(2.6rem, 6.4vw, 5.4rem)', letterSpacing: '-0.03em', textShadow: '0 2px 24px rgba(0,0,0,0.45)' }}>
+            <span className="word-up" style={{ color: '#FFFFFF', animationDelay: '0.05s' }}>Învață</span>{' '}
+            <span className="word-up" style={{ color: '#FFFFFF', animationDelay: '0.13s' }}>să</span>{' '}
+            <span className="word-up" style={{ color: '#FFFFFF', animationDelay: '0.21s' }}>conduci</span>{' '}
+            <span className="word-up" style={{ color: '#FFFFFF', animationDelay: '0.29s' }}>cu</span>{' '}
+            <span className="word-up" style={{ color: '#7FE3AC', animationDelay: '0.37s' }}>încredere.</span>
           </h1>
           <p className="text-[#C3D2E2] max-w-xl mb-10" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.32rem)' }}>
             Pregătire serioasă pentru permisul tău, cu instructori răbdători și dedicați. La AutoSafe formăm șoferi siguri — nu doar candidați la examen.
@@ -242,8 +242,8 @@ function SectionHead({ eyebrow, title, sub, mark, light = false }: { eyebrow: st
     <div className="flex justify-between items-end gap-6 flex-wrap mb-4 reveal">
       <div>
         <span className={`eyebrow ${light ? 'eyebrow-light' : ''}`}>{eyebrow}</span>
-        <h2 className={`mt-4 font-extrabold ${light ? 'text-white' : ''}`} style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.9rem)', maxWidth: '620px' }}>{title}</h2>
-        {sub && <p className={`mt-3 ${light ? 'text-[#A8BBCF]' : 'text-[#5C6B7A]'}`} style={{ maxWidth: '560px' }}>{sub}</p>}
+        <h2 className="mt-4 font-extrabold" style={{ color: light ? '#FFFFFF' : '#0C2340', fontSize: 'clamp(1.9rem, 3.5vw, 2.9rem)', maxWidth: '620px' }}>{title}</h2>
+        {sub && <p className="mt-3" style={{ color: light ? '#A8BBCF' : '#5C6B7A', maxWidth: '560px' }}>{sub}</p>}
       </div>
       <div
         className="font-extrabold leading-[0.8] select-none"
@@ -263,36 +263,36 @@ function Categorii() {
   const cats = [
     {
       letter: 'B', title: 'Autoturisme', sub: 'Cea mai cerută categorie — manuală sau automată',
-      img: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=900&q=80',
-      alt: 'Autoturism pe șosea',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/2023_Dacia_Sandero_III_DSC_6012.jpg/1280px-2023_Dacia_Sandero_III_DSC_6012.jpg',
+      alt: 'Dacia Sandero — autoturism categoria B',
       specs: [['Vârsta minimă', '18 ani'], ['Teorie', '30 ore'], ['Practică', 'min. 30 ședințe'], ['Durată', '3–4 luni']],
       docs: { t: 'Acte necesare pentru dosar', d: 'Copie CI · fișă medicală auto (valabilă 1 an) · aviz psihologic · cazier judiciar cu mențiunea „examen auto" (valabil 6 luni) · taxa de permis 89 RON.' },
     },
     {
       letter: 'B auto', title: 'Categoria B — cutie automată', sub: 'Ideală pentru traficul urban din Iași',
-      img: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80',
-      alt: 'Schimbător automat de viteze',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/2021_Skoda_Octavia_SE_First_Edition_TSi_e-TEC_SA_1.0_Front.jpg/1280px-2021_Skoda_Octavia_SE_First_Edition_TSi_e-TEC_SA_1.0_Front.jpg',
+      alt: 'Skoda Octavia — autoturism categoria B automat',
       specs: [['Vârsta minimă', '18 ani'], ['Teorie', '30 ore'], ['Practică', 'min. 30 ședințe'], ['Avantaj', 'Fără ambreiaj']],
       docs: { t: 'De ce automată?', d: 'Transmisia automată reduce complexitatea manevrelor și îți permite să te concentrezi pe trafic, reguli și anticipare. Recomandată celor care vor o experiență de condus mai simplă și relaxată.' },
     },
     {
       letter: 'C', title: 'Autocamioane', sub: 'Pentru transport de marfă peste 3,5 t',
-      img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80',
-      alt: 'Cap tractor camion',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Transportplan_Mercedes-Benz_Actros_%28cropped%29.jpg/1280px-Transportplan_Mercedes-Benz_Actros_%28cropped%29.jpg',
+      alt: 'Camion Mercedes-Benz Actros — categoria C',
       specs: [['Vârsta minimă', '21 ani'], ['Condiție', 'Categoria B'], ['Teorie', '140 ore'], ['Practică', 'min. 30 ședințe']],
       docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria B · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
     },
     {
       letter: 'D', title: 'Autobuze și autocare', sub: 'Pentru transport de persoane',
-      img: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313?auto=format&fit=crop&w=900&q=80',
-      alt: 'Autobuz urban',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mercedes_Citaro_C2_TANGO_n%C2%B0372_Romarins_%28cropped%29.jpg/1280px-Mercedes_Citaro_C2_TANGO_n%C2%B0372_Romarins_%28cropped%29.jpg',
+      alt: 'Autobuz Mercedes-Benz Citaro — categoria D',
       specs: [['Vârsta minimă', '24 ani'], ['Condiție', 'Categoria B'], ['Teorie', '140 ore'], ['Practică', 'min. 30 ședințe']],
       docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria B · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
     },
     {
       letter: 'CE', title: 'Autotren (cap tractor + semiremorcă)', sub: 'Pentru transport profesional',
-      img: 'https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=900&q=80',
-      alt: 'Semiremorcă pe autostradă',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Mercedes-Benz_Actros_truck.jpg/1280px-Mercedes-Benz_Actros_truck.jpg',
+      alt: 'Autotren — categoria CE',
       specs: [['Condiție', 'Categoria C'], ['Destinat', 'Transport marfă'], ['Teorie + practică', 'Conform legii'], ['CPC', 'La cerere']],
       docs: { t: 'Acte necesare', d: 'Copie CI · copie permis categoria C · fișă medicală auto · aviz psihologic · cazier judiciar cu mențiunea „examen auto".' },
     },
@@ -367,22 +367,22 @@ function Flota() {
     {
       name: 'Dacia Logan', brand: 'Dacia', model: 'Logan', year: '2022', gear: 'Manuală', engine: '1.0 TCe · Benzină',
       tag: 'Cutie manuală',
-      img: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=80',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2023_Dacia_Logan_III_IMG_9678_%28cropped%29.jpg/1280px-2023_Dacia_Logan_III_IMG_9678_%28cropped%29.jpg',
     },
     {
       name: 'Dacia Sandero', brand: 'Dacia', model: 'Sandero', year: '2023', gear: 'Manuală', engine: '1.0 SCe · Benzină',
       tag: 'Cutie manuală',
-      img: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/2023_Dacia_Sandero_III_DSC_6012.jpg/1280px-2023_Dacia_Sandero_III_DSC_6012.jpg',
     },
     {
       name: 'Skoda Octavia', brand: 'Skoda', model: 'Octavia', year: '2021', gear: 'Automată', engine: '1.5 TSI · Benzină',
       tag: 'Cutie automată',
-      img: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/2021_Skoda_Octavia_SE_First_Edition_TSi_e-TEC_SA_1.0_Front.jpg/1280px-2021_Skoda_Octavia_SE_First_Edition_TSi_e-TEC_SA_1.0_Front.jpg',
     },
     {
       name: 'Ford Transit / Iveco Daily', brand: 'Ford / Iveco', model: 'Transit / Daily', year: '—', gear: 'Manuală', engine: 'Diesel',
       tag: 'Categorii C/D',
-      img: 'https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=1200&q=80',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/2020_Ford_Transit_350_Leader_EcoBlue_2.0_facelift_Front.jpg/1280px-2020_Ford_Transit_350_Leader_EcoBlue_2.0_facelift_Front.jpg',
     },
   ];
   const safety = ['Frâne ABS', 'Airbag-uri', 'Duble comenzi', 'Aer condiționat', 'Centuri de siguranță'];
@@ -489,7 +489,7 @@ function Preturi() {
     },
     {
       tag: 'Categoria C / D', name: 'Pachet Profesional', price: 'La cerere',
-      img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Transportplan_Mercedes-Benz_Actros_%28cropped%29.jpg/1280px-Transportplan_Mercedes-Benz_Actros_%28cropped%29.jpg',
       alt: 'Camion profesional',
       items: ['Pregătire completă conform legislației', 'CPC inițial / periodic', 'Instructori specializați transport profesional'],
       cta: 'Solicită ofertă',

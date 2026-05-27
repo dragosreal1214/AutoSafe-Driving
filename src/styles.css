@@ -36,21 +36,23 @@
   --color-ring: #1E9E57;
 }
 
-html { scroll-behavior: smooth; }
+@layer base {
+  html { scroll-behavior: smooth; }
 
-body {
-  font-family: 'Public Sans', system-ui, sans-serif;
-  background: #FFFFFF;
-  color: #16263A;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.6;
-}
+  body {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    background: #FFFFFF;
+    color: #16263A;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
 
-h1, h2, h3, h4 {
-  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: #0C2340;
+  h1, h2, h3, h4 {
+    font-family: 'Schibsted Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: #0C2340;
+  }
 }
 
 /* Eyebrow label */
